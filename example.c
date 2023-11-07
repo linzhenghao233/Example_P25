@@ -77,3 +77,57 @@ int ListDel_L(LinkList head, int i) {
 
 	return 1;
 }
+
+void ListPint_L(LinkList head) {
+	LinkList p;
+	int i = 0;
+
+	p = head->next;
+	while (p != NULL) {
+		i++;
+		printf("第%d个元素是：", i);
+		printf("%c\n", p->data);
+		p = p->next;
+	}
+}
+
+int main(void) {
+	int i;
+	char cmd, e;
+	LinkList head;
+	head = (LinkList)malloc(sizeof(LNode));
+	head->next = NULL;
+	CreateList_L(head);
+	ListPint_L(head);
+	do {
+		printf("i,I...插入\n");
+		printf("d,D...删除\n");
+		printf("q,Q...退出\n");
+		do {
+			fflush(stdin);
+			scanf_s("%c", &cmd);
+		} while ((cmd != 'd') && (cmd != 'D') && (cmd != 'q') && (cmd != 'Q') && (cmd != 'i') && (cmd != 'I'));
+		switch (cmd) {
+		case 'i':
+		case 'I':
+			printf("请输入你要插入的数据：");
+			fflush(stdin);
+			scanf_s("%c", &e);
+			printf("请输入你要插入的位置：");
+			scanf_s("%d", &i);
+			ListInsert_L(head, i, e);
+			ListPint_L(head);
+			break;
+		case 'd':
+		case 'D':
+			printf("请输入你要删除元素的位置：");
+			fflush(stdin);
+			scanf_s("%d", &i);
+			ListDel_L(head, i);
+			ListPint_L(head);
+			break;
+		}
+	} while ((cmd != 'q') && (cmd != 'Q'));
+
+	return 0;
+}
